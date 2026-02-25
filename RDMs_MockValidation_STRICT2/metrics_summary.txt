@@ -1,0 +1,49 @@
+=== TEST_0_deterministic_tinyNoise ===
+Spec: {'name': 'TEST_0_deterministic_tinyNoise', 'signal_scale': 1.0, 'noise_sd': 0.001, 'structure': 'two_cluster', 'separation': 2.0}
+ROI_A stats: mean=2648389.8863, frac_neg=0.000, min=0.000, max=4350131.000
+Corr(recovered ROI_A, truth ROI_A) [WEIGHTED]: 1.000
+Across-ROI RSA similarity (corr of RDMs):
+  corr(A,B) expected + : 1.000
+  corr(A,C) expected ~0: -0.017
+  corr(A,D) expected ~0 (permuted): -0.014
+
+=== TEST_1_pure_noise ===
+Spec: {'name': 'TEST_1_pure_noise', 'signal_scale': 0.0, 'noise_sd': 1.0, 'structure': 'noise', 'separation': 2.0}
+ROI_A stats: mean=0.0798, frac_neg=0.259, min=-0.328, max=0.513
+Corr(recovered ROI_A, truth ROI_A) [WEIGHTED]: 0.000
+Across-ROI RSA similarity (corr of RDMs):
+  corr(A,B) expected + : 0.068
+  corr(A,C) expected ~0: -0.070
+  corr(A,D) expected ~0 (permuted): -0.060
+
+=== TEST_2_two_cluster_strongSignal ===
+Spec: {'name': 'TEST_2_two_cluster_strongSignal', 'signal_scale': 1.0, 'noise_sd': 0.5, 'structure': 'two_cluster', 'separation': 2.0}
+ROI_A stats: mean=32.5540, frac_neg=0.000, min=0.000, max=54.307
+Corr(recovered ROI_A, truth ROI_A) [WEIGHTED]: 0.999
+Across-ROI RSA similarity (corr of RDMs):
+  corr(A,B) expected + : 0.999
+  corr(A,C) expected ~0: -0.014
+  corr(A,D) expected ~0 (permuted): -0.014
+
+=== MONTE CARLO (moderate SNR) ===
+n_seeds: 20
+Corr(A vs truth) mean±sd: 0.997 ± 0.000
+corr(A,B) mean±sd: 0.993 ± 0.001
+corr(A,C) mean±sd: 0.002 ± 0.019
+corr(A,D) mean±sd: 0.005 ± 0.028
+
+=== MONTE CARLO (pure noise no-structure check) ===
+n_seeds: 50
+mean_of_means (descriptive): 0.0590 (sd=0.0194)
+mean_fraction_negative: 0.331 (sd=0.052)
+corr(A,B) mean±sd: -0.006 ± 0.064
+corr(A,C) mean±sd: -0.001 ± 0.071
+corr(A,D) mean±sd: -0.000 ± 0.065
+centering_z (informational): 3.05
+
+=== PASS/FAIL SUMMARY ===
+TEST_0_near_perfect_corr: PASS  ({'corr': 0.9999999976318968})
+TEST_1_pure_noise_no_spurious_structure_MonteCarlo: PASS  ({'single_seed_mean_descriptive': 0.07978720156866378, 'single_seed_fracneg_descriptive': 0.2594444444444444, 'mc_summary': {'n_seeds': 50, 'mean_of_means': 0.058992435949679886, 'sd_of_means': 0.01937325796443487, 'mean_fraction_negative': 0.33076666666666665, 'sd_fraction_negative': 0.051984416574984}, 'mc_acrossROI_mean_sd': {'corr(A,B)_mean_sd': (-0.006321006085087101, 0.06442428130515376), 'corr(A,C)_mean_sd': (-0.0012873248859382735, 0.07104784690388943), 'corr(A,D)_mean_sd': (-0.00038453501637845803, 0.06477041301920275)}, 'criteria': {'abs(mean corr(A,B)) < 0.20': True, 'abs(mean corr(A,C)) < 0.20': True, 'abs(mean corr(A,D)) < 0.20': True, '0.20 <= mean_fraction_negative <= 0.80': True, 'centering_z = |mean_of_means|/sd_of_means (informational)': 3.0450446721419935}})
+TEST_2_strong_signal_corr_positive: PASS  ({'corr': 0.9993212754221757})
+AcrossROI_expected_pattern_strong_signal: PASS  ({'A_B': 0.998647035689358, 'A_C': -0.013630928856064654, 'A_D': -0.014287323939132535})
+MonteCarlo_moderateSNR_corr_positive_on_average: PASS  ({'mean_sd': (0.9968835464789303, 0.00038125998530429)})
